@@ -18,22 +18,29 @@
 - Сортировка по цене, рейтингу и дате создания
 - Пагинация [web:33][web:43]
 
-Запуск проекта
+# Запуск проекта
 
-git clone <repo-url> vovo
+git clone https://github.com/WinLanEm/Vovo
+<br/>
 cd vovo
-
-# .env уже в репозитории, менять не обязательно
-docker-compose up -d
+<br/>
+.env уже в репозитории
+<br/>
+docker-compose up -d --build
 
 # миграции и сиды (выполнить внутри контейнера app)
-docker-compose exec app php artisan migrate
-docker-compose exec app php artisan l5-swagger:generate
-# при необходимости:
-# docker-compose exec app php artisan db:seed
-# добавляет 10.000 продуктов
 
-После запуска:
+docker-compose exec vovo-app-1 composer install
+<br/>
+docker-compose exec vovo-app-1 php artisan migrate
+<br/>
+docker-compose exec vovo-app-1 php artisan l5-swagger:generate
+# при необходимости:
+docker-compose exec vovo-app-1 php artisan db:seed
+<br/>
+добавляет 10.000 продуктов
+
+# После запуска:
 
 Swagger UI: http://localhost/api/documentation
 

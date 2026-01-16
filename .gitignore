@@ -2,7 +2,6 @@
 .lesshst
 .bash_history
 .DS_Store
-.env
 .env.backup
 .env.production
 .phpactor.json
