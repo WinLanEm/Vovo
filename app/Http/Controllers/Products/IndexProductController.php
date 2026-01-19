@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers\Products;
 
-use App\DTOs\ProductFilterDTO;
+use App\Actions\GetProductsAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndexProductRequest;
 use App\Http\Resources\ProductResource;
-use App\Models\Product;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class IndexProductController extends Controller
 {
-    CONST PER_PAGE = 20;
-
-    public function __invoke(IndexProductRequest $request): AnonymousResourceCollection
+    public function __invoke(IndexProductRequest $request, GetProductsAction $action): AnonymousResourceCollection
     {
-        $data = ProductFilterDTO::fromRequest($request);
-
-        $products = Product::query()
-            ->filterByRequest($data)
-            ->sortByRequest($data->sort ?? null)
-            ->paginate($data->perPage ?? self::PER_PAGE);
+        $products = $action->execute($request->validated());
 
         return ProductResource::collection($products);
     }

@@ -15,6 +15,7 @@ class ProductBuilder extends Builder
             ->when($filters->categoryId ?? null, fn($q,$id) => $q->where('category_id',$id))
             ->when($filters->inStock !== null, fn($q, $val) => $q->where('in_stock', $filters->inStock))
             ->when($filters->priceFrom ?? null, fn($q,$priceFrom) => $q->where('price', '>=' ,$priceFrom))
+            ->when($filters->ratingFrom ?? null, fn($q, $rating) => $q->where('rating', '>=', $rating))
             ->when($filters->priceTo ?? null, fn($q,$priceTo) => $q->where('price', '<=' ,$priceTo));
     }
 
